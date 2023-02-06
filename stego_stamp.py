@@ -21,20 +21,29 @@ def main(args):
 
 	stego_bits = tc.make_steg(stego_text)
 
+	# TODO this is causing problems. some characters are not becoming full septets
+	# space turns into capital A... i think this is because space is 0x20
+	# and is therefore 100000 only six digits long. this is why we are missing 1 bit
+	print(f"length of bit list {len(stego_bits)} should be {len(stego_text)*7}")
+	# print(f"length of stego_text {len(stego_text)}, stamp size {stamp_size}")
+
 	width 	= stamp_size
 	height 	= stamp_size
 	pt = Point(0,0)
 	new_img = Image(pt, width, height)
 
+	print("image width: ")
+	print(new_img.getWidth())
+
 	#encoding the black pixels with our message:
 
 	for i in range(width):
 		for j in range(height):
-			new_img.setPixel(i, j, color_rgb(0, 0, 0))
+			new_img.setPixel(i, j, color_rgb(255, 0, 0))
 
 	for i in range(len(stego_bits)):
 		if stego_bits[i]=='1':
-			new_img.setPixel(i//width, i%height, color_rgb(0, 0, 1))
+			new_img.setPixel(i//width, i%height, color_rgb(255, 0, 1))
 
 	new_img.save("steg_stamp.ppm")
 
