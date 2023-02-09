@@ -1,8 +1,16 @@
-import text_convert as tc
-
 '''
 this class is for taking a plaintext
 and encoding a stego bit list
+
+attributes:
+	ptext: original plaintext, passed as only arg to constructor
+	bit_list: ptext encoded as list of '1's and '0's (strings)
+		for easy concatenation
+	num_bits: number of bits in bit_list plus 16 (length of num_bits)
+		expressed as a binary number of 16 bits
+	steg_final: message ready to encode into image LSBs
+		1st 16 elements are total length of list
+		remaining elements are the encoded message
 
 the first 16 elements in the bit list
 should be a left 0 padded binary number
@@ -22,8 +30,11 @@ class StegoEncoder:
 	number conversion of the number
 	'''
 	def encode_bit_length(self):
+		# count number of bits in encoded list + number 
+		# of bits used to encode length (16)
+		total_bits = len(self.bit_list) + 16
 		# create binary literal and remove 0b from front
-		bin_num_lit = (bin(len(self.bit_list)))[2:]
+		bin_num_lit = (bin(total_bits))[2:]
 		lit_list = [bin_num_lit[i] for i in range(len(bin_num_lit))]
 		while(len(lit_list)<16):
 			lit_list.insert(0,'0')
@@ -56,6 +67,13 @@ class StegoEncoder:
 
 		return bin_str
 
+	'''
+	creates a stego text from the 0 padded message length
+	added to the plaintext encoded as septets
+
+	returns a list whose 1st 16 chars are the encoded message length
+	(in bits) and whose remainder is the message encoded as septets
+	'''
 	def make_steg_final(self):
 		final = []
 		for i in range(len(self.num_bits)):
@@ -64,5 +82,3 @@ class StegoEncoder:
 			final.append(self.bit_list[i])
 		return final
 
-st = StegoEncoder("hi")
-print(len(st.steg_final))
