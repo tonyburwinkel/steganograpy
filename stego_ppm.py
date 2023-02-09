@@ -3,10 +3,6 @@ import sys
 import math
 import text_convert as tc
 
-'''
-script creates a ppm image from a provided width and height,
-sets all pixels to black, and saves the image
-'''
 def main(args):
 
 	#set width and height according to requirements of text (length)

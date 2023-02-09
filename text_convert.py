@@ -1,4 +1,3 @@
-
 '''
 This module is for converting strings to lists of 1s and 0s
 and back again. 
@@ -8,7 +7,7 @@ and back again.
 takes a string and converts it into binary septets
 returns the septets as a list of strings that are either 1 or 0
 '''
-def make_steg(steg_text):
+def encode(steg_text):
 	bit_list=[]
 	for i in range(len(steg_text)):
 		# convert character to string of 1s and 0s
@@ -39,8 +38,21 @@ def char_to_bin(char):
 	if len(bin_str)<7:
 		bin_str = '0'+bin_str
 
-	#return str(bin(ord(char)))
 	return bin_str
+
+'''
+decode takes a list of bits as strings '1' and '0'
+and converts to a string
+
+params:
+	bit_list(list of strings): a list of binary septets as
+	'1's and '0's
+returns:
+	decoded string that the binary septets encoded
+'''
+def decode(bit_list):
+	septets = bins_to_septets(bit_list)
+	return septets_to_str(septets)
 
 '''
 decoding helper, changes list of '1's and '0's into 
@@ -69,7 +81,6 @@ def septet_to_char(septet):
 	bin_lit = "0b" + septet
 	bin_int = int(bin_lit, 2)
 	char = chr(bin_int)
-	print("char: " + char)
 	return char
 
 '''
@@ -87,16 +98,3 @@ def septets_to_str(septets):
 	
 	return ''.join(chars)
 
-'''
-decode takes a list of bits as strings '1' and '0'
-and converts to a string
-
-params:
-	bit_list(list of strings): a list of binary septets as
-	'1's and '0's
-returns:
-	decoded string that the binary septets encoded
-'''
-def decode(bit_list):
-	septets = bins_to_septets(bit_list)
-	return septets_to_str(septets)

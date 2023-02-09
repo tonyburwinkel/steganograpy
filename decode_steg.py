@@ -8,16 +8,17 @@ def main(args):
 
 				img = Image(pt, name)
 				width = img.getWidth()
+				height = img.getHeight()
 
-				px = width**2
+				px = width*height
 
 				bit_list = []
 				for i in range(px):
-						pixel = img.getPixel(i//width,i%width)
-						bit_list.append(pixel[2])
-
+						pixel = img.getPixel(i//width,i%height)
+						bit_list.append(pixel[2]%2)
+				
 				ptext = tc.decode(tc.ints_to_chars(bit_list))
-				print(ptext)
+				print(ptext[:100])
 
 
 if __name__ == "__main__":
