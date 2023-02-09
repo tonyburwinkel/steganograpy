@@ -1,6 +1,6 @@
 import unittest
 from unittest import TestCase
-from encoder import StegoEncoder
+from text_encoder import StegoEncoder
 
 '''
 this unittest tests the StegoEncoder class
