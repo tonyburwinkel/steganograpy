@@ -25,19 +25,6 @@ wd = img.getWidth()
 ht = img.getHeight()
 print(f"width {wd} height {ht}")
 
-def encode_pixel(old_px, steg_bit):
-	if steg_bit=='1'and  old_px[2]%2==0:
-		return [old_px[0],old_px[1],old_px[2]+1]
-	else:
-		return old_px
-	if steg_bit=='0' and old_px[2]%2==1:
-		if old_px[2]<255:
-			return [old_px[0],old_px[1],old_px[2]+1]
-		else:
-			return [old_px[0],old_px[1],old_px[2]-1]
-	else:
-		return old_px
-
 steg_img = Image(pt, wd, ht)
 
 for i in range(ht*wd):

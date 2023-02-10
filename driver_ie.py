@@ -6,5 +6,5 @@ ie = ImageEncoder("hello","ppm/maine1.ppm")
 
 op = [0,0,1]
 
-print(ie.encode_pixel(op,'0'))
-print(op[2]%2)
+ie.create_steg_img()
+ie.save_steg_image("hello.ppm")
