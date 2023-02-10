@@ -44,12 +44,19 @@ class ImageEncoder:
 	def create_steg_img(self):
 		im = self.steg_image
 		for i in range(self.ht*self.wd):
+			# generate pixel index based on i
 			pn = [i%self.wd, i//self.wd]
+			# get the original image's pixel at this index
 			op = self.original.getPixel(pn[0],pn[1])
+			# if we still have bits to encode
 			if i<len(self.steg_text):
+				# create an RGB value given the original pixel
 				np = self.encode_pixel(op, self.steg_text[i])
+				# set the new image's pixel to this RGB
 				im.setPixel(pn[0],pn[1], color_rgb(np[0],np[1],np[2]))
+			# if we are done encoding stego bits
 			else:
+				# set the remaining pixels to the original's values
 				im.setPixel(pn[0],pn[1], color_rgb(op[0],op[1],op[2]))
 
 	'''
