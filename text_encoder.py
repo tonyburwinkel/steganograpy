@@ -17,7 +17,7 @@ should be a left 0 padded binary number
 representing the total number of bits encoded
 (including this number)
 '''
-class StegoEncoder:
+class TextEncoder:
 	def __init__(self, ptext):
 		self.ptext = ptext
 		self.bit_list = self.encode_text(ptext)
