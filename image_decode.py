@@ -31,5 +31,3 @@ for i in range(16, int_length):
 #print(int_length)
 
 print(imd.msg)
-
-

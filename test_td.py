@@ -36,5 +36,15 @@ class TestDecoder(TestCase):
 		msg = self.td.septets_to_str(seps)
 		self.assertEqual(msg, "hello")
 		
+	'''
+	make sure method returns correct char from binary septet
+	'''
+	def test_decode(self):
+		te = TextEncoder("hello")
+		bits = te.bit_list
+		td = TextDecoder(bits)
+		msg = td.decode()
+		self.assertEqual(msg, "hello")
+
 if __name__=="__main__":
 	unittest.main()

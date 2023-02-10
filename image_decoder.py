@@ -10,15 +10,15 @@ class ImageDecoder:
 		self.steg_img = Image(Point(0,0), fname)
 		self.wd = self.steg_img.getWidth()
 		self.ht = self.steg_img.getHeight()
-		self.msg_len = self.get_msg_len
-		self.msg_bits = self.get_msg_bits
+		self.msg_len = self.get_msg_len()
+		self.msg_bits = self.get_msg_bits()
 		self.td = TextDecoder(self.msg_bits)
-		self.msg = td.decoded()
+		self.msg = self.td.decoded
 
 	def get_msg_len(self):
 		length = []
 		for i in range(16):
-			px = steg_img.getPixel(i,0)
+			px = self.steg_img.getPixel(i,0)
 			if px[2]%2:
 				length.append('1')
 			else:
@@ -32,8 +32,8 @@ class ImageDecoder:
 			pn = [i%self.wd, i//self.wd]
 			px = self.steg_img.getPixel(pn[0],pn[1])
 			if px[2]%2:
-				msg.append('1')
+				msg_bits.append('1')
 			else:
-				msg.append('0')
+				msg_bits.append('0')
 
 		return msg_bits

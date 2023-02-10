@@ -1,7 +1,7 @@
 class TextDecoder:
 	def __init__(self, bit_list):
 		self.bit_list = bit_list
-		decoded = self.decode()
+		self.decoded = self.decode()
 
 	'''
 	decode takes a list of bits as strings '1' and '0'
