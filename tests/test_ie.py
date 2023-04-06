@@ -9,7 +9,7 @@ this unittest tests the StegoEncoder class
 class TestImageEncoder(TestCase):
 
 	def setUp(self):
-		self.ie = ImageEncoder("hello", "ppm/maine1.ppm")
+		self.ie = ImageEncoder("hello", "../ppm/maine1.ppm")
 
 	'''
 	make sure bit value '1' applied to odd

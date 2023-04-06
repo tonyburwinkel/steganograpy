@@ -1,4 +1,6 @@
-Prototyping a steganography library built on Zelle's graphics library
+Simple steganography tool written in Python
 
-So far, have added the capability to make a steganographic "stamp" with a hidden 
-message
+This program is for hiding messages in images. 
+
+The provided tools take a message written in ascii text and encode the message
+into the least significant bits of the image's pixels (specifically the blue values in RGB).
