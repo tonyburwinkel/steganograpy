@@ -1,12 +1,6 @@
 from graphics import *
 import sys
 
-# get an image
-original = Image(Point(0,0), sys.argv[1])
-
-wd = original.getWidth()
-ht = original.getHeight()
-
 '''
 apply an integer from the kernel to an rgb pixel
 pixel: a list of 3 integers
@@ -56,9 +50,6 @@ def apply_kernel(kernel, i, j, image):
 
 	return new_rgb
 			
-kernel = 	[[-1, -1, -1],
-      		[-1, 8, -1],
-      		[-1, -1, -1]]
 '''
 
 kernel = 	[[0, 1, 0],
@@ -71,13 +62,38 @@ kernel = 	[[0, 1, 0],
 # save the resulting image
 # show the two next to each other using tk
 
-def create_rs_image(image):
+def create_kn_image(image, kernel):
+	print(kernel)
+	kernels = {
+	"laplace":[[-1, -1, -1],
+  	    		[-1, 8, -1],
+    	  		[-1, -1, -1]],
+
+	"emboss" : [[-2, -1, 0],
+           [-1, 1, 1],
+           [0, 1, 2]],
+
+	"sharpen" : [[0, -1, 0],
+           [-1, 5, -1],
+           [0, -1, 0]],
+
+	"blur" : [[1, 1, 1],
+           [1, 1, 1],
+           [1, 1, 1]]
+					 }
+
+	kn = kernels.get(kernel)
+	original = Image(Point(0,0), image)
+
+	wd = original.getWidth()
+	ht = original.getHeight()
+	
 	filtered = Image(Point(0,0), wd, ht)
 
 	for i in range(1, wd-1):
 		for j in range(1, ht-1):
-			new_px = apply_kernel(kernel, i, j, original)
-			print(new_px)
+			new_px = apply_kernel(kn, i, j, original)
+			#print(new_px)
 			for k in range(3):
 				if new_px[k] < 0:
 					new_px[k] = 0
@@ -85,8 +101,7 @@ def create_rs_image(image):
 					new_px[k] = 255
 			filtered.setPixel(i, j, color_rgb(new_px[0], new_px[1], new_px[2]))
 	
-	save_name = f"{sys.argv[1].split('.')[0]}_rs"
+	save_name = f"{image.split('.')[0]}_kn"
 	
 	filtered.save(f"{save_name}.ppm")
 
-create_rs_image(original)

@@ -62,7 +62,7 @@ class TextEncoder:
 	def char_to_bin(self, char):
 		bin_lit=(str(bin(ord(char))))
 		bin_str=bin_lit[2:]
-		if len(bin_str)<7:
+		while len(bin_str)<7:
 			bin_str = '0'+bin_str
 
 		return bin_str
