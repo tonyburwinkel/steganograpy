@@ -26,14 +26,17 @@ def encode_image():
 
 def refresh_drop():
 	# Reset var and delete all old options
+	selected.set('')
 	drop['menu'].delete(0, 'end')
 
 	# Insert list of new options (tk._setit hooks them up to var)
 	new_choices = list(filter(lambda x: x[-3:]=="ppm", os.listdir()))
 	for choice in new_choices:
 		drop['menu'].add_command(label=choice, command=tk._setit(selected, choice))
+	selected.set("choose image")
 
 def load_image():
+	current = Image.open(selected.get())
 	new_photo = ImageTk.PhotoImage(Image.open(f"{selected.get()}"))
 	print(selected.get())
 	picture.config(image = new_photo)
@@ -51,6 +54,10 @@ def exit_app():
 
 root = Tk()
 
+button_frame = Frame(root , height=20)
+picture_frame = Frame( root )
+text_frame = Frame(root, height=100)
+
 # make a list of  options to fill the drop menu with
 options = list(filter(lambda x: x[-3:]=="ppm", os.listdir()))
   
@@ -60,23 +67,23 @@ selected = StringVar()
 selected.set(f"{options[0]}" )
   
 # Create Dropdown menu
-drop = OptionMenu( root , selected , *options )
+drop = OptionMenu( button_frame , selected , *options )
 	
 # Create load button (its parent, its text, its event listener)
-load_btn = Button( root , text = "load" , command = load_image )
-encode_btn = Button( root , text = "encode", command = encode_image )
-decode_btn = Button( root , text = "decode", command = decode_image )
-exit_button = Button(root, text="Exit", command=exit_app)
+load_btn = Button( button_frame , text = "load" , command = load_image )
+encode_btn = Button( button_frame , text = "encode", command = encode_image )
+decode_btn = Button( button_frame , text = "decode", command = decode_image )
+exit_btn = Button( button_frame , text="Exit", command=exit_app)
 
 # load an image to start with
 photo_init = ImageTk.PhotoImage(Image.open(f"{options[0]}"))
 # Create Label with initial image to load
-picture = Label( root , image = photo_init )
+picture = Label( picture_frame , image = photo_init )
 
-stego_text = Text(root, height = 5)
+stego_text = Text(text_frame, height = 5)
 
-save_label = Label(root, text="save as:")
-save_name = Text(root, height = 1)
+save_label = Label(text_frame, text="encode as:")
+save_name = Text(text_frame, height = 1)
 
 '''
 drop.pack()
@@ -89,6 +96,11 @@ decode_btn.pack()
 exit_button.pack(pady=20)
 '''
 
+root_w = root.winfo_width()
+root_h = root.winfo_height()
+
+
+'''
 #root.rowconfigure(0, weight=1)
 root.columnconfigure(0, weight=1)
 
@@ -101,6 +113,20 @@ save_name.grid(row=3, column=1, columnspan=2, padx=40, pady=10)
 encode_btn.grid(row=4, column=0, sticky="ew") 
 decode_btn.grid(row=4, column=1, sticky="ew")
 exit_button.grid(row=4, column=2, sticky="ew")
+'''
+
+button_frame.pack()
+picture_frame.pack()
+text_frame.pack()
+
+decode_btn.grid(row=0, column=0)
+encode_btn.grid(row=0, column=1)
+drop.grid(row=1, column=0)
+load_btn.grid(row=1, column=1)
+exit_btn.grid(row=1, column=2)
+
+picture.pack()
+stego_text.pack()
 
 # Execute tkinter
 root.mainloop()

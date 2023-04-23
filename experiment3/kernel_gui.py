@@ -27,15 +27,6 @@ def load_image():
 	picture2.image=None
 	refresh_drop()
 
-def make_lsb():
-	current = selected.get()
-	from lsb_expose import lsb_expose
-	lsb_expose(current)
-	lsb = ImageTk.PhotoImage(Image.open(f"{current.split('.')[0]}_lsb.ppm"))
-	picture2.config(image = lsb)
-	picture2.image = lsb
-	os.system(f"rm {current.split('.')[0]}_lsb.ppm") 
-
 def run_kernel():
 	current = selected.get()
 	from rs_kernel import create_kn_image
@@ -58,7 +49,7 @@ root = Tk()
 
 # make a list of  options to fill the drop menu with
 options = list(filter(lambda x: x[-3:]=="ppm", os.listdir()))
-effect_list = ["laplace", "emboss", "sharpen", "blur"]
+effect_list = ["laplace", "emboss", "sharpen", "top sobel"]
   
 # datatype of menu text (tkinter.StringVar())
 selected = StringVar()

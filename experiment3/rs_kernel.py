@@ -50,12 +50,6 @@ def apply_kernel(kernel, i, j, image):
 
 	return new_rgb
 			
-'''
-
-kernel = 	[[0, 1, 0],
-      		[1, -4, 1],
-      		[0, 1, 0]]
-'''
 
 # apply the kernel to each pixel
 # save the pixel to a new image in the same position (map it)
@@ -65,21 +59,29 @@ kernel = 	[[0, 1, 0],
 def create_kn_image(image, kernel):
 	print(kernel)
 	kernels = {
-	"laplace":[[-1, -1, -1],
+	"laplace":[
+						[-1, -1, -1],
   	    		[-1, 8, -1],
-    	  		[-1, -1, -1]],
+    	  		[-1, -1, -1]
+						],
 
-	"emboss" : [[-2, -1, 0],
-           [-1, 1, 1],
-           [0, 1, 2]],
+	"emboss" : [
+						[-2, -1, 0],
+           	[-1, 1, 1],
+           	[0, 1, 2]]
+						,
 
-	"sharpen" : [[0, -1, 0],
-           [-1, 5, -1],
-           [0, -1, 0]],
+	"sharpen" : [
+						[0, -1, 0],
+           	[-1, 5, -1],
+           	[0, -1, 0]]
+						,
 
-	"blur" : [[1, 1, 1],
-           [1, 1, 1],
-           [1, 1, 1]]
+	"top sobel" : [
+						[1, 2, 1],
+           	[0, 0, 0],
+           	[-1, -2, -1]
+						]
 					 }
 
 	kn = kernels.get(kernel)
@@ -104,4 +106,6 @@ def create_kn_image(image, kernel):
 	save_name = f"{image.split('.')[0]}_kn"
 	
 	filtered.save(f"{save_name}.ppm")
+
+	return filtered
 
