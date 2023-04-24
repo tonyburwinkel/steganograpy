@@ -8,8 +8,8 @@ TODO: encode with image_encoder
 '''
 
 def main():
-	ht = 400
-	wd = 400
+	ht = 300
+	wd = 300
 
 	white = Image(Point(0,0), wd, ht)
 
