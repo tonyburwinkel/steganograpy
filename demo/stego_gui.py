@@ -39,6 +39,7 @@ def load_image():
 	picture.config(image = new_photo)
 	picture.image=new_photo
 	clear_text()
+	refresh_drop()
 
 def clear_text():
 	print("clear")

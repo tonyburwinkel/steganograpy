@@ -26,15 +26,12 @@ def encode_image():
 
 def refresh_drop():
 	# Reset var and delete all old options
-	current = selected.get()
-	selected.set('')
 	drop['menu'].delete(0, 'end')
 
 	# Insert list of new options (tk._setit hooks them up to var)
 	new_choices = os.listdir("ppm")
 	for choice in new_choices:
 		drop['menu'].add_command(label=choice, command=tk._setit(selected, choice))
-	selected.set(current)
 
 def load_image():
 	current = Image.open(f"ppm/{selected.get()}")
