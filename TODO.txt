@@ -1,0 +1,6 @@
+[ ] convert all imaging in encoder/decoder to PIL instead of graphics
+[ ] implement bit masking in lsb exposure algorithm
+	- mask all but the selected bit plane
+	- create new image with black or white pixel
+	- create composite image with white where pixels agree and red where they don't
+	- show all 3, cover, composite, and carrier in tryptych (side by side)

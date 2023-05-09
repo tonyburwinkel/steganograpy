@@ -1,4 +1,10 @@
 from graphics import *
+from tkinter import *
+import tkinter as tk
+import os
+from PIL import Image
+from PIL import ImageTk
+  
 from text_encoder import TextEncoder
 
 '''
@@ -15,10 +21,10 @@ class ImageEncoder:
 		self.ptext = ptext
 		self.te = TextEncoder(ptext)
 		# use graphics to load a pixelmap of image
-		self.original = Image(Point(0,0), image)
-		self.wd = self.original.getWidth()
-		self.ht = self.original.getHeight()
-		self.steg_image = Image(Point(0,0), self.wd, self.ht)
+		self.original = Image.open(image)
+		self.wd = self.original.width
+		self.ht = self.original.height
+		self.steg_image = Image(mode='RGB', size=(self.wd, self.ht))
 		self.steg_text = self.te.steg_final
 
 	'''
